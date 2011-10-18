@@ -5,47 +5,80 @@
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" >
 <link rel="stylesheet" type="text/css" href="http://localhost/css/global_style.php">
 <link rel="icon" type="image/png" href="http://localhost/img/favicon.php">
-<title><?php echo $this->content['title'] . ' | Lite Plate'; ?></title>
+<title><?php echo $this->get_page()->get_title(); ?></title>
 <meta name="description" content="">
 <!--[if gte IE 5]><link rel="stylesheet" type="text/css" href="http://localhost/css/ie_fixes.css"><![endif]-->
+<script type="text/javascript">
+function downloadJSAtOnload(){
+	var element = document.createElement("script");
+	element.src = "http://localhost/script/return_to_top_min.php";
+	document.body.appendChild(element);
+}
+if(window.addEventListener){ window.addEventListener("load", downloadJSAtOnload, false); }
+else if(window.attachEvent){ window.attachEvent("onload", downloadJSAtOnload); }
+else{ window.onload = downloadJSAtOnload; }
+</script>
 </head>
-<body<?php echo $this->body_id; ?>>
+<body<?php $this->guess_body_id(); ?>>
 <div class="global_container">
 <div class="header_container">
-	<div class="navigation_container">
-		<ul class="column grid_8 main_navigation">
-			<?php Page::get_navigation(); ?>
-		</ul>
-		<ul class="column grid_4 login_navigation">
-			<li><a href="http://localhost/login.php" title="Sign in to your account" class="first-child">Sign In</a></li>
-			<li><a href="http://localhost/register.php" title="Sign up for a free user account!" class="last-child">Sign Up</a></li>
-		</ul>
+	<div class="row navigation_container">
+		<?php echo $this->get_page()->get_main_navigation(); ?>
 	</div>
 </div>
 <div class="row body_container">
 	<div class="column grid_8 content_container">
-		<?php eval('?>' . $this->content['left_column'] . '<?php '); ?>
+		<?php
+		$content = $this->get_page()->get_content();
+		eval('?>' . $content['left_column'] . '<?php ');
+		?>
 	</div>
 	<div class="column grid_4 subcontent_container">
-		<?php eval('?>' . $this->content['right_column'] . '<?php '); ?>
+		<?php eval('?>' . $content['right_column'] . '<?php '); ?>
 	</div>
 </div>
 <div class="footer_container">
 	<div class="row">
-		<small class=column grid_8">
-			Copyright &#169; 2011 Lite Plate CMS
-			<?php echo $this->content['footer']; ?>
-		</small>
+		<div class="column grid_8">
+			<small class="copyright"><?php include_once DOC_ROOT . 'inc/copyright.txt'; ?></small>
+			<div class="row">
+				<ul class="column grid_2 footer_list">
+					<strong>Lite Plate CMS</strong>
+					<?php $this->print_root_links(); ?>
+				</ul>
+				<ul class="column grid_2 footer_list">
+					<strong>Documentation</strong>
+					<li><a href="">Installing</a></li>
+					<li><a href="">Configuring</a></li>
+					<li><a href="">Getting Started</a></li>
+					<li><a href="">Troubleshooting</a></li>
+					<li><a href="">Wiki Page</a></li>
+				</ul>
+				<ul class="column grid_2 footer_list">
+					<strong>More Info</strong>
+					<li><a href="">About Light Plate</a></li>
+					<li><a href="">Sitemap</a></li>
+					<li><a href="">Changelog</a></li>
+					<li><a href="">Source Code</a></li>
+					<li><a href="">Github Repo</a></li>
+				</ul>
+				<ul class="column grid_2 footer_list">
+					<strong>Services</strong>
+					<li><a href="">Public API</a></li>
+					<li><a href="">Membership</a></li>
+					<li><a href="">Hosting</a></li>
+					<li><a href="">Developers</a></li>	
+				</ul>
+			</div>
+		</div>
+		<div class="column grid_4">
+			<div class="return_to_top">Return To Top<strong>&#8593;</strong></div>
+		</div>
+			
 	</div>
 </div>
 </div>
-<?php
-if(!empty($this->content['script_filepath'])){
-	?>
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
-	<script type="text/javascript" src="<?php echo WEB_ROOT . $this->content['script_filepath']; ?>"></script>
-	<?php
-}
-?>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+<!--<script type="text/javascript" src="http://localhost/script/return_to_top_min.php"></script>-->
 </body>
 </html>

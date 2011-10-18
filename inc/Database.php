@@ -3,14 +3,14 @@ class Database{
     private $connection;
     
     public function query($query_string){
-        $result = mysql_query($query_string);
-	if(!$result){
+        $result = mysql_query($query_string, $this->connection);
+		if(!$result){
             die('Error: ' . mysql_error());					
     	}
         return $result;
     }
     public function select_database($database_name){
-        mysql_selectdb($database_name);
+        mysql_selectdb($database_name, $this->connection);
     }
     public function connect($hostname, $username, $password){
         $this->connection = mysql_connect($hostname, $username, $password);

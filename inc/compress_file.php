@@ -13,7 +13,7 @@ function compress_file($files, $contentType, $revalidate, $expiresLength){
     }
     ob_end_flush();
 }
-function compress($buffer) {
+function compress($buffer){
     $buffer = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $buffer);
     $buffer = str_replace(array("\r\n", "\r", "\n", "\t", '  ', '    ', '    '), '', $buffer);
     return $buffer;

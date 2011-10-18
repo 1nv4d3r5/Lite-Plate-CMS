@@ -6,7 +6,7 @@ Header set Cache-Control "no-cache, must-revalidate"
 </Files>
 <FilesMatch "\.(ico|pdf|flv|jp?eg|png|gif|js|css|swf|php|htm?l|txt)$">
 Header set Cache-Control "public"
-Header set Expires "Fri, 28 Oct 2011 20:00:00 GMT"
+Header set Expires "Fri, 25 Nov 2011 20:00:00 GMT"
 #Header unset Last-Modified
 </FilesMatch>
 
