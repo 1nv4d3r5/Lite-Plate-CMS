@@ -136,3 +136,17 @@ CREATE TABLE IF NOT EXISTS `users` (
 INSERT INTO `users` (`id`, `username`, `password`, `salt`) VALUES
 (1, 'admin', '$2a$10$1377d61faab5c95cac1b8u6aW2q3E/AkrstgEUWDMTEnyl2Z02VjS', '1377d61faab5c95cac1b89'),
 (2, 'scott', '$2a$10$5f0b5b45541de270325bae9dOfZkFtwwv3x.J/8TVu0uzxR3.Cm5O', '5f0b5b45541de270325bae');
+
+-- --------------------------------------------------------
+
+--
+-- Make user for database
+--
+
+CREATE USER 'lite_plate'@'localhost' IDENTIFIED BY 'lite_plate';
+CREATE USER 'lite_plate'@'%' IDENTIFIED BY 'lite_plate';
+ 
+GRANT SELECT ON lite_plate.* TO 'lite_plate'@'localhost';
+GRANT SELECT ON lite_plate.* TO 'lite_plate'@'%';
+ 
+FLUSH PRIVILEGES;
