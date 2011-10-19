@@ -3,12 +3,18 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 19, 2011 at 01:23 AM
+-- Generation Time: Oct 19, 2011 at 01:50 AM
 -- Server version: 5.1.58
 -- PHP Version: 5.3.6-13ubuntu3.2
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
 
 --
 -- Database: `lite_plate`
@@ -123,9 +129,9 @@ INSERT INTO `node_1_content` (`id`, `content`, `subcontent`, `script_url`, `page
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
-  `username` char(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `password` char(60) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `salt` char(22) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `username` char(32) NOT NULL,
+  `password` char(60) NOT NULL,
+  `salt` char(22) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
@@ -136,6 +142,10 @@ CREATE TABLE IF NOT EXISTS `users` (
 INSERT INTO `users` (`id`, `username`, `password`, `salt`) VALUES
 (1, 'admin', '$2a$10$1377d61faab5c95cac1b8u6aW2q3E/AkrstgEUWDMTEnyl2Z02VjS', '1377d61faab5c95cac1b89'),
 (2, 'scott', '$2a$10$5f0b5b45541de270325bae9dOfZkFtwwv3x.J/8TVu0uzxR3.Cm5O', '5f0b5b45541de270325bae');
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
 -- --------------------------------------------------------
 
