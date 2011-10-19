@@ -4,7 +4,7 @@ To Install:
 1.) copy all files into your web directory
 2.) either:
 -import the install_lite_plate.sql file using phpmyadmin
--or using the terminal: $ mysql -u root -p lite_plate < install_lite_plate.sql
+-or using the terminal: $ mysql -u root -p lite_plate < lite_plate.sql
 --------------------------------------------------------------------------------------------------------------
 Functions:
 
