@@ -3,23 +3,17 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 17, 2011 at 11:54 PM
+-- Generation Time: Oct 19, 2011 at 01:23 AM
 -- Server version: 5.1.58
 -- PHP Version: 5.3.6-13ubuntu3.2
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-
 --
 -- Database: `lite_plate`
 --
-DROP DATABASE `lite_plate`;
+DROP DATABASE IF EXISTS `lite_plate`;
 CREATE DATABASE `lite_plate` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `lite_plate`;
 
@@ -30,7 +24,7 @@ USE `lite_plate`;
 --
 
 DROP TABLE IF EXISTS `blog_entries`;
-CREATE TABLE `blog_entries` (
+CREATE TABLE IF NOT EXISTS `blog_entries` (
   `id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
   `title` char(255) NOT NULL,
   `date` char(64) NOT NULL,
@@ -60,7 +54,7 @@ INSERT INTO `blog_entries` (`id`, `title`, `date`, `entry`) VALUES
 --
 
 DROP TABLE IF EXISTS `node_1`;
-CREATE TABLE `node_1` (
+CREATE TABLE IF NOT EXISTS `node_1` (
   `id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
   `name` char(32) NOT NULL,
   `url` char(255) NOT NULL,
@@ -70,7 +64,7 @@ CREATE TABLE `node_1` (
   `body_id` char(32) NOT NULL,
   `type` char(16) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
 
 --
 -- Dumping data for table `node_1`
@@ -83,7 +77,10 @@ INSERT INTO `node_1` (`id`, `name`, `url`, `title`, `parent`, `children`, `body_
 (4, 'Contact', 'contact/', '', 'root', 'NULL', 'contact', 'main'),
 (5, 'Blog', 'blog/', '', 'root', 'NULL', 'blog', 'main'),
 (6, 'Sign In', 'login/', 'Sign in to access your account', 'root', 'NULL', 'login', 'login'),
-(7, 'Sign Up', 'register/', 'Sign up! It''s easy and free!', 'root', 'NULL', 'register', 'login');
+(7, 'Sign Up', 'register/', 'Sign up! It''s easy and free!', 'root', 'NULL', 'register', 'login'),
+(8, '404', '', 'Error 404: You''re doing it wrong!', 'NULL', 'NULL', '404', 'error'),
+(9, '403', '', 'Error 403: You''re not allowed to see that!', 'NULL', 'NULL', '403', 'error'),
+(10, '500', '', 'Error 500: Something''s not working!', 'NULL', 'NULL', '500', 'error');
 
 -- --------------------------------------------------------
 
@@ -92,27 +89,50 @@ INSERT INTO `node_1` (`id`, `name`, `url`, `title`, `parent`, `children`, `body_
 --
 
 DROP TABLE IF EXISTS `node_1_content`;
-CREATE TABLE `node_1_content` (
+CREATE TABLE IF NOT EXISTS `node_1_content` (
   `id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
   `content` text NOT NULL,
   `subcontent` text NOT NULL,
+  `script_url` char(255) NOT NULL,
   `page` char(32) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
 
 --
 -- Dumping data for table `node_1_content`
 --
 
-INSERT INTO `node_1_content` (`id`, `content`, `subcontent`, `page`) VALUES
-(1, '<h1><a href="">Felis Habitant Molestie Aliquam Primis Suscipit Etiam Tempor Ante Magna</a></h1>\r\n<p>\r\n	Porttitor class. Curabitur. Etiam tempor ante magna. Sociis adipiscing.\r\n	Semper vitae dolor luctus sem nulla nisi amet sociis nisl scelerisque ad\r\n	molestie fames convallis dis adipiscing lorem quam duis adipiscing fusce magnis\r\n	<em>integer</em> id <strong>potenti</strong> per ac aptent\r\n	<strong>massa</strong> feugiat <em>mi</em> venenatis <strong>sed</strong>\r\n	consectetuer nisl et lectus montes aenean eleifend neque dictumst sit vivamus\r\n	ullamcorper erat, torquent lorem mus praesent nec taciti montes tortor eros Id.\r\n</p>\r\n<h3>Facilisis facilisi diam lacinia aptent</h3>\r\n<p>\r\n	Per class Eget tristique velit dapibus nonummy risus. Bibendum <em>dolor</em>\r\n	dictum parturient dis congue purus a, etiam. Mattis fames justo metus at\r\n	eleifend magnis enim nisi Parturient. Dolor volutpat vestibulum etiam litora\r\n	molestie purus <em>purus</em> magna magna lacinia dictum faucibus class\r\n	facilisis facilisi diam lacinia aptent, dapibus et. Scelerisque aliquam\r\n	Ullamcorper etiam ridiculus malesuada Dis platea.\r\n</p>\r\n<h2><a href="">Lectus Potenti Porta Euismod Hendrerit Fames</a></h2>\r\n<p>\r\n	Porta euismod hendrerit fames. Ad quis at libero ultrices mollis risus\r\n	elementum. Cubilia ipsum hendrerit inceptos pede lectus duis, facilisis sagittis\r\n	Elementum ultrices. Hymenaeos risus est mauris, nec cum libero amet vulputate\r\n	<em>conubia</em> orci <em>iaculis</em> non lectus nulla habitant curabitur\r\n	varius. Phasellus.\r\n</p>\r\n<h3>Cubilia ipsum hendrerit inceptos pede lectus duis</h3>\r\n<p>\r\n	Lectus justo arcu natoque erat. <strong>Per</strong>\r\n	ultricies ad curae;, cum accumsan elementum nisi aliquet rutrum adipiscing, cras\r\n	enim, lacinia netus orci Sodales. <strong>Habitasse</strong> ad non venenatis\r\n	praesent ultrices imperdiet suspendisse potenti volutpat laoreet rhoncus justo\r\n	mi taciti <strong>fringilla</strong> a per augue fermentum nam ridiculus\r\n	vestibulum. Lacinia elit turpis duis. Class. Mattis pretium mollis consequat\r\n	auctor rutrum vitae netus nisl hymenaeos integer posuere pulvinar est.\r\n</p>\r\n<h2><a href="">Magnis Malesuada Hac Amet Ut Pede Morbi</a></h2>\r\n<p>\r\n	Integer proin. Sociis sociis tellus hendrerit torquent enim. Massa\r\n	ullamcorper mollis ut massa sapien <em>aptent</em> nostra ultricies aliquam\r\n	fames, nisl habitant diam praesent leo suscipit fusce adipiscing, felis morbi.\r\n	Velit nam justo leo pharetra mus diam est. <strong>Mus</strong> lacinia inceptos\r\n	integer adipiscing dui fermentum scelerisque, nonummy placerat condimentum\r\n	adipiscing convallis. Ad quis ultrices quisque porta consequat vel diam et\r\n	condimentum diam hymenaeos quam cum venenatis vel facilisis, enim hac justo\r\n	tortor metus.\r\n</p> ', '<?php $this->get_blog()->display_recent_entries(); ?>', 'home'),
-(2, '<h1>Augue</h1>\r\n\r\n<p>Inceptos quisque ad senectus aliquam. Congue litora convallis magnis nunc fames eleifend placerat. Tortor <em>gravida</em> placerat feugiat cubilia. Cubilia quam molestie consequat, morbi inceptos vitae eros aenean feugiat, viverra quis.</p>\r\n<h2>Suscipit Sodales Fusce Et</h2>\r\n\r\n<p>Iaculis sociis nisi. Parturient maecenas dictumst placerat vestibulum hendrerit arcu habitasse torquent molestie hendrerit ornare ut auctor class mus. Libero luctus nunc euismod ultrices Netus convallis laoreet facilisi nulla nascetur pretium magnis luctus. Nostra leo curae; ligula sociis libero <strong>pharetra</strong> lectus ligula. Parturient semper lacinia. Dui, elementum lacinia eget.</p>\r\n<h2>Habitasse Adipiscing Facilisi Neque Morbi Tellus</h2>\r\n\r\n<p>Hac mattis risus hymenaeos dictum imperdiet nibh massa at mattis. Luctus. Arcu natoque velit laoreet elit scelerisque torquent lacinia. Nullam cursus <em>dapibus</em> erat mus phasellus semper pretium, fames ante semper torquent mi. Sapien tortor proin primis curae;. Proin laoreet laoreet dapibus consequat.</p>\r\n\r\n<p>Ac torquent proin. Litora per gravida mus iaculis risus et gravida consequat vitae mus dui ac scelerisque porta Viverra cubilia urna platea habitasse aliquam iaculis gravida. At, non Blandit faucibus cubilia nunc nonummy. Varius volutpat.</p>\r\n<h2>Metus Molestie Tempor Nonummy Tortor</h2>\r\n\r\n<p>Leo pharetra pharetra nascetur ornare faucibus, rhoncus orci justo metus sollicitudin felis parturient ridiculus. Hendrerit mollis libero dolor molestie tristique ligula dolor vel semper convallis magna <strong>potenti</strong> suscipit erat mattis <em>vestibulum</em> felis. Ligula ut metus. Orci sed odio iaculis elit est rutrum nisi sodales ridiculus cum class adipiscing ultricies ultrices.</p>\r\n\r\n<p>Varius egestas habitasse ultricies vehicula nisi curabitur feugiat augue laoreet. Nisl. Quis primis potenti dictumst nostra lorem. Fermentum class taciti volutpat amet quam auctor molestie a varius, quis ad iaculis habitant.</p>\r\n<h2>Gravida Nec</h2>\r\n\r\n<p>Malesuada Tortor. Cubilia morbi ornare aenean nibh varius dignissim felis, ac. Porta ac nunc massa dapibus litora.</p>\r\n<h2>Parturient</h2>\r\n\r\n<p>Pretium libero donec mauris ultricies <em>magnis</em> vel platea fames auctor massa facilisis mollis velit suscipit praesent platea nunc nullam, fames praesent augue tempus <em>nostra</em> elementum. Nascetur sollicitudin litora. Malesuada condimentum. Aliquam eget velit, ad <em>mi</em> felis leo molestie senectus interdum <em>nunc</em> praesent accumsan duis porttitor nisl.</p>\r\n', '<?php $this->get_blog()->display_recent_entries(); ?>', 'about'),
-(3, '&#160;', '<?php $this->get_blog()->display_recent_entries(); ?>', 'download'),
-(4, '&#160;', '<?php $this->get_blog()->display_recent_entries(); ?>', 'contact'),
-(5, '<?php $this->get_blog()->display_all_entries(); ?>', '<?php $this->get_blog()->display_archive_compact(); ?>', 'blog'),
-(6, '<h2>Sign In</h2>\r\n<p>coming soon</p>', '', 'login'),
-(7, '<h2>Sign Up</h2>\r\n<p>coming soon</p>', '', 'register');
+INSERT INTO `node_1_content` (`id`, `content`, `subcontent`, `script_url`, `page`) VALUES
+(1, '<h1><a href="">Felis Habitant Molestie Aliquam Primis Suscipit Etiam Tempor Ante Magna</a></h1>\r\n<p>\r\n	Porttitor class. Curabitur. Etiam tempor ante magna. Sociis adipiscing.\r\n	Semper vitae dolor luctus sem nulla nisi amet sociis nisl scelerisque ad\r\n	molestie fames convallis dis adipiscing lorem quam duis adipiscing fusce magnis\r\n	<em>integer</em> id <strong>potenti</strong> per ac aptent\r\n	<strong>massa</strong> feugiat <em>mi</em> venenatis <strong>sed</strong>\r\n	consectetuer nisl et lectus montes aenean eleifend neque dictumst sit vivamus\r\n	ullamcorper erat, torquent lorem mus praesent nec taciti montes tortor eros Id.\r\n</p>\r\n<h3>Facilisis facilisi diam lacinia aptent</h3>\r\n<p>\r\n	Per class Eget tristique velit dapibus nonummy risus. Bibendum <em>dolor</em>\r\n	dictum parturient dis congue purus a, etiam. Mattis fames justo metus at\r\n	eleifend magnis enim nisi Parturient. Dolor volutpat vestibulum etiam litora\r\n	molestie purus <em>purus</em> magna magna lacinia dictum faucibus class\r\n	facilisis facilisi diam lacinia aptent, dapibus et. Scelerisque aliquam\r\n	Ullamcorper etiam ridiculus malesuada Dis platea.\r\n</p>\r\n<h2><a href="">Lectus Potenti Porta Euismod Hendrerit Fames</a></h2>\r\n<p>\r\n	Porta euismod hendrerit fames. Ad quis at libero ultrices mollis risus\r\n	elementum. Cubilia ipsum hendrerit inceptos pede lectus duis, facilisis sagittis\r\n	Elementum ultrices. Hymenaeos risus est mauris, nec cum libero amet vulputate\r\n	<em>conubia</em> orci <em>iaculis</em> non lectus nulla habitant curabitur\r\n	varius. Phasellus.\r\n</p>\r\n<h3>Cubilia ipsum hendrerit inceptos pede lectus duis</h3>\r\n<p>\r\n	Lectus justo arcu natoque erat. <strong>Per</strong>\r\n	ultricies ad curae;, cum accumsan elementum nisi aliquet rutrum adipiscing, cras\r\n	enim, lacinia netus orci Sodales. <strong>Habitasse</strong> ad non venenatis\r\n	praesent ultrices imperdiet suspendisse potenti volutpat laoreet rhoncus justo\r\n	mi taciti <strong>fringilla</strong> a per augue fermentum nam ridiculus\r\n	vestibulum. Lacinia elit turpis duis. Class. Mattis pretium mollis consequat\r\n	auctor rutrum vitae netus nisl hymenaeos integer posuere pulvinar est.\r\n</p>\r\n<h2><a href="">Magnis Malesuada Hac Amet Ut Pede Morbi</a></h2>\r\n<p>\r\n	Integer proin. Sociis sociis tellus hendrerit torquent enim. Massa\r\n	ullamcorper mollis ut massa sapien <em>aptent</em> nostra ultricies aliquam\r\n	fames, nisl habitant diam praesent leo suscipit fusce adipiscing, felis morbi.\r\n	Velit nam justo leo pharetra mus diam est. <strong>Mus</strong> lacinia inceptos\r\n	integer adipiscing dui fermentum scelerisque, nonummy placerat condimentum\r\n	adipiscing convallis. Ad quis ultrices quisque porta consequat vel diam et\r\n	condimentum diam hymenaeos quam cum venenatis vel facilisis, enim hac justo\r\n	tortor metus.\r\n</p> ', '<?php $this->get_blog()->display_recent_entries(); ?>', '', 'home'),
+(2, '<h1>Augue</h1>\r\n\r\n<p>Inceptos quisque ad senectus aliquam. Congue litora convallis magnis nunc fames eleifend placerat. Tortor <em>gravida</em> placerat feugiat cubilia. Cubilia quam molestie consequat, morbi inceptos vitae eros aenean feugiat, viverra quis.</p>\r\n<h2>Suscipit Sodales Fusce Et</h2>\r\n\r\n<p>Iaculis sociis nisi. Parturient maecenas dictumst placerat vestibulum hendrerit arcu habitasse torquent molestie hendrerit ornare ut auctor class mus. Libero luctus nunc euismod ultrices Netus convallis laoreet facilisi nulla nascetur pretium magnis luctus. Nostra leo curae; ligula sociis libero <strong>pharetra</strong> lectus ligula. Parturient semper lacinia. Dui, elementum lacinia eget.</p>\r\n<h2>Habitasse Adipiscing Facilisi Neque Morbi Tellus</h2>\r\n\r\n<p>Hac mattis risus hymenaeos dictum imperdiet nibh massa at mattis. Luctus. Arcu natoque velit laoreet elit scelerisque torquent lacinia. Nullam cursus <em>dapibus</em> erat mus phasellus semper pretium, fames ante semper torquent mi. Sapien tortor proin primis curae;. Proin laoreet laoreet dapibus consequat.</p>\r\n\r\n<p>Ac torquent proin. Litora per gravida mus iaculis risus et gravida consequat vitae mus dui ac scelerisque porta Viverra cubilia urna platea habitasse aliquam iaculis gravida. At, non Blandit faucibus cubilia nunc nonummy. Varius volutpat.</p>\r\n<h2>Metus Molestie Tempor Nonummy Tortor</h2>\r\n\r\n<p>Leo pharetra pharetra nascetur ornare faucibus, rhoncus orci justo metus sollicitudin felis parturient ridiculus. Hendrerit mollis libero dolor molestie tristique ligula dolor vel semper convallis magna <strong>potenti</strong> suscipit erat mattis <em>vestibulum</em> felis. Ligula ut metus. Orci sed odio iaculis elit est rutrum nisi sodales ridiculus cum class adipiscing ultricies ultrices.</p>\r\n\r\n<p>Varius egestas habitasse ultricies vehicula nisi curabitur feugiat augue laoreet. Nisl. Quis primis potenti dictumst nostra lorem. Fermentum class taciti volutpat amet quam auctor molestie a varius, quis ad iaculis habitant.</p>\r\n<h2>Gravida Nec</h2>\r\n\r\n<p>Malesuada Tortor. Cubilia morbi ornare aenean nibh varius dignissim felis, ac. Porta ac nunc massa dapibus litora.</p>\r\n<h2>Parturient</h2>\r\n\r\n<p>Pretium libero donec mauris ultricies <em>magnis</em> vel platea fames auctor massa facilisis mollis velit suscipit praesent platea nunc nullam, fames praesent augue tempus <em>nostra</em> elementum. Nascetur sollicitudin litora. Malesuada condimentum. Aliquam eget velit, ad <em>mi</em> felis leo molestie senectus interdum <em>nunc</em> praesent accumsan duis porttitor nisl.</p>\r\n', '<?php $this->get_blog()->display_recent_entries(); ?>', '', 'about'),
+(3, '<h3>Coming Soon</h3>\r\n<p>It won''t be long now!</p>', '<?php $this->get_blog()->display_recent_entries(); ?>', '', 'download'),
+(4, '<h3>Coming Soon</h3>\r\n<p>It won''t be long now!</p>', '<?php $this->get_blog()->display_recent_entries(); ?>', '', 'contact'),
+(5, '<?php $this->get_blog()->display(); ?>', '<?php $this->get_blog()->display_archive_compact(); ?>', '', 'blog'),
+(6, '<h2>Sign In</h2>\r\n<form method="post" action="http://localhost/login_attempt.php" class="login_form">\r\n	<label for="login_email_input" class="login_input_label">Email</label>\r\n    <input type="text" name="login_email_input" class="login_email_input" id="login_email_input" title="Enter your email address here" maxlength="64">\r\n	<label for="login_password_input" class="login_input_label">Password</label>\r\n    <input type="password" name="login_password_input" class="login_password_input" id="login_password_input" title="Enter your password here" maxlength="16">\r\n	<label for="login_remember_email_checkbox" class="login_remember_email_label">\r\n        <input type="checkbox" class="login_remember_email_checkbox" id="login_remember_email_checkbox" name="login_remember_email_checkbox" value="1">\r\n        Remember my email address\r\n    </label>\r\n    <button type="submit" class="button" title="Sign in to the Users area">Sign In</button>\r\n</form>', '<h3>Access your account</h3>\r\n<ul class="subcontent_ul sans">\r\n	<li>Manage your pages</li>\r\n	<li>Edit your blog</li>\r\n	<li>Post new content</li>\r\n	<li>And much more!</li>\r\n</ul>\r\n<h3>Not a Member yet?</h3>\r\n<ul class="subcontent_ul sans">\r\n    <li><a href="http://localhost/register.php" title="Join now it''s easy and free!">Sign Up</a> now! It''s easy and free!</li>\r\n</ul>', 'http://localhost/script/form_scripts_min.php', 'login'),
+(7, '<h2>Sign Up</h2>\r\n<p>coming soon</p>', '', '', 'register'),
+(8, '<h2>Error 404</h2>', '', '', '404'),
+(9, '<h2>Error 403</h2>', '', '', '403'),
+(10, '<h2>Error 500</h2>', '', '', '500');
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
+  `username` char(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `password` char(60) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `salt` char(22) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `password`, `salt`) VALUES
+(1, 'admin', '$2a$10$1377d61faab5c95cac1b8u6aW2q3E/AkrstgEUWDMTEnyl2Z02VjS', '1377d61faab5c95cac1b89'),
+(2, 'scott', '$2a$10$5f0b5b45541de270325bae9dOfZkFtwwv3x.J/8TVu0uzxR3.Cm5O', '5f0b5b45541de270325bae');
