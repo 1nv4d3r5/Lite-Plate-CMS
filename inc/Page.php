@@ -1,6 +1,5 @@
 <?php
-class Page
-{
+class Page{
 	private $_title;
 	private $_main_navigation;
 	private $_content;

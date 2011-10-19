@@ -1,6 +1,5 @@
 <?php
-class Node
-{
+class Node{
 	private $_name;
 	private $_url;
 	private $_parent;

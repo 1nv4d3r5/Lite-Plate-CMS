@@ -1,7 +1,6 @@
 <?php
 include_once DOC_ROOT . 'inc/Node.php';
-class Tree
-{
+class Tree{
 	private $root;
 	
 	public function __construct(){

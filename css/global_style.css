@@ -1,4 +1,4 @@
-/* GLOBALS (the fewer, the better) */
+/* GLOBALS (avoid if possible) */
 html,body{
 	margin: 0;
 	padding: 0;
@@ -65,13 +65,13 @@ h3 a:hover{
 	padding: 0 0 18px;
 }
 .body_container{
-	padding-bottom: 220px;
+	padding-bottom: 240px;
 }
 .footer_container{
 	position: absolute;
 	bottom: 0;
 	width: 100%;
-	height: 220px;
+	height: 240px;
 	background: #ccc;
 	-webkit-box-shadow: 0 2px 0 0 #aaa inset;
 	-moz-box-shadow: 0 2px 0 0 #aaa inset;
@@ -157,19 +157,28 @@ h3 a:hover{
 
 /* CONTENT COMPONENTS */
 .content_container h1, .subcontent_container h1{
-	padding: 0 0 10px;
+	padding: 0 0 2px;
 	font: 900 32px "Helvetica Neue", Helvetica, Arial, sans-serif;
 	color: #404040;
+	-webkit-text-shadow: 0 1px 0 #fff;
+	-moz-text-shadow: 0 1px 0 #fff;
+	text-shadow: 0 1px 0 #fff;
 }
 .content_container h2, .subcontent_container h2{
-	padding: 0 0 10px;
+	padding: 0 0 2px;
 	font: 900 28px "Helvetica Neue", Helvetica, Arial, sans-serif;
 	color: #646464;
+	-webkit-text-shadow: 0 1px 0 #fff;
+	-moz-text-shadow: 0 1px 0 #fff;
+	text-shadow: 0 1px 0 #fff;
 }
 .content_container h3, .subcontent_container h3{
-	padding: 0 0 10px;
+	padding: 0 0 2px;
 	font: 900 22px "Helvetica Neue", Helvetica, Arial, sans-serif;
 	color: #767676;
+	-webkit-text-shadow: 0 1px 0 #fff;
+	-moz-text-shadow: 0 1px 0 #fff;
+	text-shadow: 0 1px 0 #fff;
 }
 .content_container p{
 	margin: 0 0 18px;
@@ -180,45 +189,57 @@ h3 a:hover{
 /* END CONTENT COMPONENTS */
 
 /* SUB-CONTENT COMPONENTS */
+.subcontent_container h3{
+	padding: 0;
+}
 .subcontent_ul{
 	padding: 0 0 10px;
 }
 .subcontent_ul li{
 	padding: 0 0 16px;
-	font: 17px/200% Baskerville, "Baskerville old face", "Hoefler Text", Garamond, "Times New Roman", serif;
-	line-height: 150%;
 	color: #999;
 }
 .subcontent_ul a,
 .subcontent_ul a:link,
 .subcontent_ul a:active,
 .subcontent_ul a:visited{
-	/*background: #eecc00;*/
 	padding: 2px 0;
 	text-decoration: none;
 	color: #999;
 	outline: none;
 }
 .subcontent_ul a:hover{
-	border-bottom: 1px solid #686868;
-	color: #686868;
+	border-bottom: 1px solid #606060;
+	color: #606060;
+}
+.subcontent_ul strong{
+	line-height: 130%;
+	display: block;
+	color: #b4b4b4;
+}
+.sans{
+	font: 17px/160% "Helvetica Neue", Helvetica, Arial, sans-serif
+}
+.serif{
+	font: 16px/150% "Lucida Bright", Georgia, serif;
 }
 /* END SUBCONTENT COMPONENTS */
 
 /* FOOTER COMPONENTS */
 .copyright{
 	display: block;
-	padding: 2px 0 0;
+	padding: 4px 0 0;
 	font: small-caps 12px "Helvetica Neue", Helvetica, Arial, sans-serif;
 	text-align: left;
 	letter-spacing: 2px;
-	color: #777;
+	color: #888;
 }
 .copyright a,
 .copyright a:link,
 .copyright a:active,
 .copyright a:visited{
-	color: #777;
+	display: inline-block;
+	color: #888;
 	text-decoration: none;
 }
 .copyright a:hover{
@@ -254,24 +275,27 @@ h3 a:hover{
 	font: 18px sans-serif;
 }
 .footer_list{
-	padding: 8px 0 0;
+	padding: 8px 0 4px;
 }
 .footer_list strong{
 	display: inline-block;
 	padding: 0 0 2px;
-	font: 900 18px "Helvetica Neue", Helvetica, Arial, sans-serif;
-	color: #777;
+	font: 900 17px "Helvetica Neue", Helvetica, Arial, sans-serif;
+	color: #999;
+	-webkit-text-shadow: 0 1px 0 #e4e4e4;
+	-moz-text-shadow: 0 1px 0 #e4e4e4;
+	text-shadow: 0 1px 0 #e4e4e4;
 }
 .footer_list a,
 .footer_list a:link,
 .footer_list a:active,
 .footer_list a:visited{
 	font: 15px/32px "Helvetica Neue", Helvetica, Arial, sans-serif;
-	color: #8d8d8d;
+	color: #aaa;
 	text-decoration: none;	
 }
 .footer_list a:hover{
 	color: #23aaff;
 	border-bottom: 1px solid #23aaff;
 }
-/* FOOTER COMPONENTS */
+/* END FOOTER COMPONENTS */

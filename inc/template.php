@@ -40,7 +40,6 @@ else{ window.onload = downloadJSAtOnload; }
 <div class="footer_container">
 	<div class="row">
 		<div class="column grid_8">
-			<small class="copyright"><?php include_once DOC_ROOT . 'inc/copyright.txt'; ?></small>
 			<div class="row">
 				<ul class="column grid_2 footer_list">
 					<strong>Lite Plate CMS</strong>
@@ -70,6 +69,7 @@ else{ window.onload = downloadJSAtOnload; }
 					<li><a href="">Developers</a></li>	
 				</ul>
 			</div>
+			<small class="copyright"><?php include_once DOC_ROOT . 'inc/copyright.txt'; ?></small>
 		</div>
 		<div class="column grid_4">
 			<div class="return_to_top">Return To Top<strong>&#8593;</strong></div>
@@ -79,6 +79,10 @@ else{ window.onload = downloadJSAtOnload; }
 </div>
 </div>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
-<!--<script type="text/javascript" src="http://localhost/script/return_to_top_min.php"></script>-->
+<?php
+if(!empty($content['script_url'])){
+	?><script type="text/javascript" src="<?php echo $content['script_url']; ?>"></script><?php
+}
+?>
 </body>
 </html>

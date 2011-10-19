@@ -1,0 +1,124 @@
+/*.contact_form{
+  min-width: 100%;
+  margin: 10px 0 0;
+  padding: 0 0 40px;
+}
+.email_input{
+  min-width: 420px;
+  margin: 0 0 15px;
+  padding: 10px;
+  background: #e4e4e4;
+  border: 0;
+  font: 18px/150% "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #999;
+  -webkit-box-shadow: 0 1px 0 1px #c0c0c0 inset;
+  -moz-box-shadow: 0 1px 0 1px #c0c0c0 inset;
+  box-shadow: 0 1px 0 1px #c0c0c0 inset;
+}
+.message_input{
+  min-width: 600px;
+  min-height: 280px;
+  max-width: 600px;
+  margin: 0 0 15px;
+  padding: 10px;
+  background: #e4e4e4;
+  border: 0;
+  overflow: auto;
+  font: 18px/150% "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #999;
+  -webkit-box-shadow: 0 1px 0 1px #c0c0c0 inset;
+  -moz-box-shadow: 0 1px 0 1px #c0c0c0 inset;
+  box-shadow: 0 1px 0 1px #c0c0c0 inset;
+}
+.contact_form b{
+  color: #ff00ff;
+}*/
+.login_form{
+  width: 444px;
+  padding: 0 0 44px;
+}
+.login_email_input, .login_password_input{
+  min-width: 420px;
+  margin: 0 0 28px;
+  padding: 10px;
+  background: #dfdfdf;
+  border: 0;
+  font: 22px/100% "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #aaa;
+  -webkit-box-shadow: 0 1px 1px 1px #aaa inset;
+  -moz-box-shadow: 0 1px 1px 1px #aaa inset;
+  box-shadow: 0 1px 1px 1px #aaa inset;
+}
+.login_password_input{
+  margin: 0 0 32px;
+}
+.login_form a,
+.login_form a:link,
+.login_form a:active,
+.login_form a:visited{
+  float: right;
+  font: 12px/20px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #a0a0a0;
+  text-decoration: none;
+}
+.login_form a:hover{
+  text-decoration: underline;
+}
+.login_form .login_input_label{
+	font: 20px/160% "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #666;
+	cursor: pointer;
+}
+.login_remember_email_label{
+  font: italic 12px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #666;
+  cursor: pointer;
+}
+.login_remember_email_checkbox{
+  position: relative;
+	top: 3px;
+  left: -4px;
+  margin-right: -2px;
+  cursor: default;
+}
+.button{
+  float: right;
+  padding: 12px 16px;
+  border: 0;
+  overflow: visible;
+  background: #e6e6e6;
+  font: 900 22px/100% "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #bbb;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+  border-radius: 6px;
+  text-shadow: 0 -1px 0 #888;
+	-webkit-box-shadow:  0 0 1px 1px #fff inset, 0 1px 1px 1px #aaa, 0 8px 0 1px #989898, 0 8px 0 5px #ddd;
+	-moz-box-shadow:  0 0 1px 1px #fff inset, 0 1px 1px 1px #aaa, 0 8px 0 1px #989898, 0 8px 0 5px #ddd;
+  box-shadow:  0 0 1px 1px #fff inset, 0 1px 1px 1px #aaa, 0 8px 0 1px #989898, 0 8px 0 5px #ddd;
+  cursor: pointer;
+}
+/*.contact_button{
+	float: none;
+	margin: 0 0 0 5px;
+}*/
+.button_hover{
+  background: #eee;
+/*  color: #ccc;*/
+  text-shadow: 0 -1px 0 #949494, 0 2px 0 #fff;
+}
+.button_active{
+  position: relative;
+	top: 7px;
+	-webkit-box-shadow: 0 1px 0 0 #e0e0e0 inset, 0 1px 0 1px #fff inset, 0 1px 1px 1px #aaa, 0 1px 0 1px #999, 0 1px 0 5px #ddd;
+	-moz-box-shadow: 0 1px 0 0 #e0e0e0 inset, 0 1px 0 1px #fff inset, 0 1px 1px 1px #aaa, 0 1px 0 1px #999, 0 1px 0 5px #ddd;
+  box-shadow: 0 1px 0 0 #e0e0e0 inset, 0 1px 0 1px #fff inset, 0 1px 1px 1px #aaa, 0 1px 0 1px #999, 0 1px 0 5px #ddd;
+}
+.input_active{
+  background: #eee;
+  color: #333;
+  outline: none;
+	-webkit-box-shadow: 0 0 1px 1px #54afe0 inset;
+	-moz-box-shadow: 0 0 1px 1px #54afe0 inset;
+	box-shadow: 0 0 1px 1px #54afe0 inset;
+}

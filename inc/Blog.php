@@ -40,7 +40,13 @@ class Blog{
 		}
 		else if(!empty($_GET['node2']) && strcasecmp($_GET['node2'], 'archive') != 0){
 			$node2 = Database::sanitize_string($_GET['node2']);
-			$this->display_entry_by_title($node2);
+			$title = str_replace("-", " ", $node2);
+			if($this->string_is_title($title)){			
+				$this->display_entry_by_title($node2);
+			}
+			else{
+				echo 'Error 404!';
+			}
 		}
 		else{
 			?>
@@ -48,7 +54,12 @@ class Blog{
 			<?php
 			if(!empty($_GET['node3'])){
 				$node3 = Database::sanitize_string($_GET['node3']);
-				$this->display_archive_by_month($node3);
+				if($this->string_is_month($node3)){
+					$this->display_archive_by_month($node3);
+				}
+				else{
+					echo 'Error 404!';
+				}
 			}
 			else{
 				$this->display_archive();
@@ -64,28 +75,26 @@ class Blog{
 	}
 	public function display_entry_by_title($title){
 		for($i=0;$i < count($this->entry_list);$i++){
-			$url_title = str_replace(" ", "-", $this->entry_list[$i]->get_title());
-			if(strcasecmp($url_title, $title) == 0){
+			if(strcasecmp($this->entry_list[$i]->get_url_title(), $title) == 0){
 				$this->entry_list[$i]->to_string_full();		
 			}
 		}
 	}
 	public function display_recent_entries($entry_count=5){
 		?><h3><a href="<?php echo WEB_ROOT . 'blog/'; ?>" title="Read our blog!">Recent Blog Entries</a></h3>
-		<ul class="subcontent_ul"><?php
+		<ul class="subcontent_ul serif"><?php
 		for($i=0;$i < $entry_count;$i++){
-			$url_title = str_replace(" ", "-", $this->entry_list[$i]->get_title());
-				?>
-				<li><a href="<?php echo WEB_ROOT . 'blog/' . $url_title . '/'; ?>" title="<?php echo $this->entry_list[$i]->get_title(); ?>"><?php echo $this->entry_list[$i]->get_title(); ?></a>
-				<?php
+			?>
+			<li><a href="<?php echo WEB_ROOT . 'blog/' . $this->entry_list[$i]->get_url_title() . '/'; ?>" title="<?php echo $this->entry_list[$i]->get_title(); ?>"><?php echo $this->entry_list[$i]->get_title(); ?></a>
+			<?php
 		}
 	}
 	public function display_archive(){
 		for($j=0;$j < count($this->entries_per_month);$j++){
 			if($this->entries_per_month[$j] > 0){
 				?>
-				<ul class="default_ul">
-				<h3><a href="<?php echo WEB_ROOT . 'blog/archive/' . $this->month[$j]; ?>" title="Blog Archives for <?php echo $this->month[$j]; ?>"><?php echo $this->month[$j]; ?></a></h3>
+				<h3><a href="<?php echo WEB_ROOT . 'blog/archive/' . lcfirst($this->month[$j]); ?>" title="Blog Archives for <?php echo $this->month[$j]; ?>"><?php echo $this->month[$j]; ?></a></h3>
+				<ul class="subcontent_ul sans">				
 				<?
 				for($i=count($this->entry_list)-1;$i >= 0;$i--){
 					$pos = strpos($this->entry_list[$i]->get_date(), $this->month[$j]);
@@ -93,9 +102,11 @@ class Blog{
 						//string needle NOT found in haystack
 					}
 					else{
-						$url_title = str_replace(" ", "-", $this->entry_list[$i]->get_title());
 						?>
-							<li>&#183; <a href="http://localhost/blog/<?php echo $url_title; ?>/" title="<?php echo $this->entry_list[$i]->get_title(); ?>"><?php echo $this->entry_list[$i]->get_title(); ?></a></li>
+						<li>
+							<a href="http://localhost/blog/<?php echo $this->entry_list[$i]->get_url_title(); ?>/" title="<?php echo $this->entry_list[$i]->get_title(); ?>"><?php echo $this->entry_list[$i]->get_title(); ?></a>
+							<strong class="serif"><?php echo $this->entry_list[$i]->get_date(); ?></strong>
+						</li>
 						<?php
 					}
 				}
@@ -107,18 +118,20 @@ class Blog{
 	}
 	public function display_archive_by_month($month){
 		?>
-		<ul class="default_ul">
-		<h3><?php echo $month; ?></h3>
+		<h3><?php echo ucfirst($month); ?></h3>
+		<ul class="subcontent_ul sans">
 		<?php
 		for($i=count($this->entry_list)-1;$i >= 0;$i--){
-			$pos = strpos($this->entry_list[$i]->get_date(), $month);
+			$pos = strpos(strtolower($this->entry_list[$i]->get_date()), $month);
 			if($pos === false){
 				//string needle NOT found in haystack
 			}
 			else{
-				$url_title = str_replace(" ", "-", $this->entry_list[$i]->get_title());
 				?>				
-				<li>&#183;<a href="http://localhost/blog/<?php echo $url_title; ?>/" title="<?php echo $this->entry_list[$i]->get_title(); ?>"><?php echo $this->entry_list[$i]->get_title() ?></a></li>
+				<li>
+					<a href="http://localhost/blog/<?php echo $this->entry_list[$i]->get_url_title(); ?>/" title="<?php echo $this->entry_list[$i]->get_title(); ?>"><?php echo $this->entry_list[$i]->get_title(); ?></a>
+					<strong class="serif"><?php echo $this->entry_list[$i]->get_date(); ?></strong>
+				</li>
 				<?php
 			}
 		}
@@ -128,11 +141,11 @@ class Blog{
 	}
 	public function display_archive_compact(){
 		?><h3><a href="http://localhost/blog/archive/" title="Find older entries in our Archives">Blog Archives</a></h3>
-		<ul class="subcontent_ul"><?php
+		<ul class="subcontent_ul serif"><?php
 		for($i=0;$i < count($this->entries_per_month);$i++){
 			if($this->entries_per_month[$i] > 0){
 				?>
-				<li><a href="<?php echo WEB_ROOT . 'blog/archive/' . $this->month[$i] . '/'; ?>" title="<?php echo $this->entry_list[$i]->get_title(); ?>"><?php echo $this->month[$i]; ?> (<?php echo $this->entries_per_month[$i]; ?>)</a></li>
+				<li><a href="<?php echo WEB_ROOT . 'blog/archive/' . lcfirst($this->month[$i]) . '/'; ?>" title="<?php echo $this->entry_list[$i]->get_title(); ?>"><?php echo ucfirst($this->month[$i]); ?> (<?php echo $this->entries_per_month[$i]; ?>)</a></li>
 				<?php
 			}
 		}
@@ -141,6 +154,34 @@ class Blog{
 		<?php
 	}
 	
+	public function string_is_title($string){
+		$match_count = 0;
+		for($i=0;$i < count($this->entry_list);$i++){
+			if(strcmp($this->entry_list[$i]->get_title(), $string) == 0){
+				$match_count++;
+			}			
+		}
+		if($match_count > 0){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	public function string_is_month($string){
+		$match_count = 0;
+		for($i=0;$i < count($this->month);$i++){
+			if(strcmp(lcfirst($this->month[$i]), $string) == 0){
+				$match_count++;
+			}
+		}
+		if($match_count > 0){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
 	public function delete_entry_list(){
 		for($i=0;$i < count($this->entries_per_month);$i++){
 			unset($this->entries_per_month[$i]);

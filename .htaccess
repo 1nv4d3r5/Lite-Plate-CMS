@@ -7,7 +7,6 @@ Header set Cache-Control "no-cache, must-revalidate"
 <FilesMatch "\.(ico|pdf|flv|jp?eg|png|gif|js|css|swf|php|htm?l|txt)$">
 Header set Cache-Control "public"
 Header set Expires "Fri, 25 Nov 2011 20:00:00 GMT"
-#Header unset Last-Modified
 </FilesMatch>
 
 #rewrites
@@ -28,7 +27,6 @@ RewriteCond %{REQUEST_URI} !\..+$
 RewriteCond %{REQUEST_URI} !/$
 RewriteRule (.*) http://localhost/$1/ [R=301,L]
 
-
 #security
 Options -Indexes
 <Files .htaccess>
@@ -39,3 +37,4 @@ deny from all
 #error pages
 ErrorDocument 403 /error/403.php
 ErrorDocument 404 /error/404.php
+ErrorDocument 500 /error/500.php
