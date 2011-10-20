@@ -144,14 +144,14 @@ INSERT INTO `users` (`id`, `username`, `password`, `salt`) VALUES
 -- Make user for database
 --
 
-DROP USER 'lite_plate'@'localhost';
-DROP USER 'lite_plate'@'%';
+-- DROP USER 'lite_plate'@'localhost';
+-- DROP USER 'lite_plate'@'%';
 
-CREATE USER 'lite_plate'@'localhost' IDENTIFIED BY 'lite_plate';
-CREATE USER 'lite_plate'@'%' IDENTIFIED BY 'lite_plate';
+-- CREATE USER 'lite_plate'@'localhost' IDENTIFIED BY 'lite_plate';
+-- CREATE USER 'lite_plate'@'%' IDENTIFIED BY 'lite_plate';
  
-GRANT SELECT ON lite_plate.* TO 'lite_plate'@'localhost';
-GRANT SELECT ON lite_plate.* TO 'lite_plate'@'%';
+GRANT SELECT ON lite_plate.* TO 'lite_plate'@'localhost' IDENTIFIED BY 'lite_plate';
+GRANT SELECT ON lite_plate.* TO 'lite_plate'@'%' IDENTIFIED BY 'lite_plate';
  
 FLUSH PRIVILEGES;
 
