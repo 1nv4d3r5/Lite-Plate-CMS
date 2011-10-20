@@ -18,19 +18,17 @@ class GlobalController{
 		$this->_database = new Database();
 		$this->_tree = new Tree();
 		$this->_root = $this->_tree->get_root();
-		$this->connect_to_db();
 		$this->_node_list = $this->fetch_nodes(1);
 		$this->get_root()->add_children($this->_node_list);
 		$this->_page = new Page($this->guess_page_title() , $this->get_tree(), $this->fetch_content(1));
 		$node1 = $this->get_node1();
-		if(!$this->page_exists($node1)){
+		if(!$this->find_page($node1)){
 			$this->error_404();
 			return;
 		}
 		$this->_blog = new Blog();
 	}
 	public function __destruct(){
-		$this->_database->disconnect();
 		$this->delete_node_list();
 		unset($this->_database, $this->_tree, $this->_root, $this->_page, $this->_node_list, $this->_blog);
 	}
@@ -39,8 +37,11 @@ class GlobalController{
 		include_once DOC_ROOT . 'inc/template.php';
 	}
 
+	/* content and "node" functions */
 	public function fetch_nodes($node_level){
+		$this->connect_to_db();
 		$result = $this->_database->query('SELECT name, url, body_id, type FROM lite_plate.node_' . $node_level);
+		$this->disconnect_from_db();
 		$i = 0;
 		while($row = mysql_fetch_array($result)){
 			$output_array[$i] = new Node($row['name'], $row['url']);
@@ -56,8 +57,10 @@ class GlobalController{
 		}
 	}
 	public function fetch_content($node_level){
+		$this->connect_to_db();
 		$result = $this->_database->query('SELECT content, subcontent, script_url, page FROM lite_plate.node_' . $node_level . '_content');
 		$node1 = $this->get_node1();
+		$this->disconnect_from_db();
 		while($row = mysql_fetch_array($result)){
 			if(strcasecmp($row['page'], $node1) == 0){
 				return array(
@@ -73,7 +76,6 @@ class GlobalController{
 			echo ' id="' . $this->_body_id . '"';
 		}
 		else{
-			$this->connect_to_db();
 			$node1 = $this->get_node1();
 			echo ' id="' . $node1 . '"';
 		}
@@ -86,7 +88,7 @@ class GlobalController{
 			}
 		}
 	}
-	public function page_exists($page_name){
+	public function find_page($page_name){
 		for($i=0;$i < count($this->_node_list);$i++){
 			if(strcmp($this->_node_list[$i]->get_body_id(), $page_name) == 0){
 				return true;
@@ -94,8 +96,12 @@ class GlobalController{
 		}
 		return false;
 	}
+	public function print_root_links(){
+		echo $this->get_root()->print_children_compact();
+	}
+	/* END content and "node" functions */
 
-	
+	/* http and header functions */
 	public function error_403(){
 		$this->_page = new Page('403 Error' , $this->get_tree(), $this->fetch_http_error_content(403));	
 		$this->set_body_id('403');
@@ -112,14 +118,15 @@ class GlobalController{
 		self::http_status(500);
 	}
 	public function fetch_http_error_content($error_code){
+		$this->connect_to_db();
 		$result = $this->_database->query('SELECT content, subcontent, script_url, page FROM lite_plate.node_1_content WHERE page=' . $error_code . ' LIMIT 1');
+		$this->disconnect_from_db();
 		$row = mysql_fetch_array($result);
 		return array(
 			'left_column' => $row['content'],
 			'right_column' => $row['subcontent'],
 			'script_url' => $row['script_url']
 		);
-		
 	}
 	public static function http_status($error_code){
 		switch($error_code){
@@ -141,22 +148,28 @@ class GlobalController{
 	public static function redirect($wait_time, $url){
 		header('Refresh: ' . $wait_time . '; URL=' . $url);
 	}
+	/* END http and header functions */
+	
+	/* helper functions */
 	public function get_node1(){
+		$this->connect_to_db();
 		if(!empty($_GET['node1'])){
-			return Database::sanitize_string($_GET['node1']);
+			return Database::sanitize_string($_GET['node1']);;
 		}
 		else{
 			return 'home';
 		}
+		$this->disconnect_from_db();
 	}
 	public function connect_to_db(){
 		$this->_database->connect('localhost', 'lite_plate', 'lite_plate');
 	}
-	
-	public function print_root_links(){
-		echo $this->get_root()->print_children_compact();
+	public function disconnect_from_db(){
+		$this->_database->disconnect();
 	}
-	
+	/* END helper functions */
+
+	/* getters */
 	public function get_database(){ return $this->_database; }
 	public function get_tree(){ return $this->_tree; }
 	public function get_root(){ return $this->_root; }
@@ -164,7 +177,16 @@ class GlobalController{
 	public function get_body_id(){ return $this->_body_id; }
 	public function get_node_list(){ return $this->_node_list; }
 	public function get_blog(){ return $this->_blog; }
+	/* END getters */
 	
+	/* setters */
+	public function set_database($database){ $this->_database = $database; }
+	public function set_tree($tree){ $this->_tree = $tree; }
+	public function set_root($root){ $this->_root = $root; }
+	public function set_page($page){ $this->_page = $page; }
 	public function set_body_id($body_id){ $this->_body_id = $body_id; }
+	public function set_node_list($node_list){ $this->_node_list = $node_list; }
+	public function set_blog($blog){ $this->_blog = $blog; }
+	/* END setters */
 }
 ?>

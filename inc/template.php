@@ -81,7 +81,9 @@ else{ window.onload = downloadJSAtOnload; }
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
 <?php
 if(!empty($content['script_url'])){
-	?><script type="text/javascript" src="<?php echo $content['script_url']; ?>"></script><?php
+	?>
+	<script type="text/javascript" src="<?php echo $content['script_url']; ?>"></script>
+	<?php
 }
 ?>
 </body>
