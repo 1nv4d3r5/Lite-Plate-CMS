@@ -47,6 +47,29 @@ INSERT INTO `blog_entries` (`id`, `title`, `date`, `entry`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `error_content`
+--
+
+DROP TABLE IF EXISTS `error_content`;
+CREATE TABLE `error_content` (
+  `id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
+  `content` char(255) NOT NULL,
+  `page` char(32) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `error_content`
+--
+
+INSERT INTO `error_content` (`id`, `content`, `page`) VALUES
+(1, '<h1>Error 403</h1>\r\n<h3>Private Page</h3>\r\n<p>\r\nSorry but you''re not allowed to access this page.\r\n<br>\r\nWould you like to <a href="<?php echo WEB_ROOT; ?>" title"Return to the Home page?">go home</a>?\r\n</p>', '403'),
+(2, '<h1>Error 404</h1>\r\n<h3>Page Not Found</h3>\r\n<p>\r\nSorry but we can''t find that page!\r\n<br>\r\nWould you like to <a href="<?php echo WEB_ROOT; ?>" title="Return to the Home page?">go home</a>?\r\n</p>', '404'),
+(3, '<h2>Error 500</h2>', '500');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `node_1`
 --
 
@@ -93,7 +116,7 @@ CREATE TABLE `node_1_content` (
   `script_url` char(255) NOT NULL,
   `page` char(32) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `node_1_content`
@@ -104,12 +127,9 @@ INSERT INTO `node_1_content` (`id`, `content`, `subcontent`, `script_url`, `page
 (2, '<h1>Augue</h1>\r\n<p>\r\nInceptos quisque ad senectus aliquam. Congue litora convallis magnis nunc\r\nfames eleifend placerat. Tortor <em>gravida</em> placerat feugiat cubilia.\r\nCubilia quam molestie consequat, morbi inceptos vitae eros aenean feugiat,\r\nviverra quis.\r\n</p>\r\n<h2>Suscipit Sodales Fusce Et</h2>\r\n<p>\r\nIaculis sociis nisi. Parturient maecenas dictumst placerat vestibulum\r\nhendrerit <a href="">arcu habitasse torquent molestie hendrerit ornare ut</a> auctor class mus.\r\nLibero luctus nunc euismod ultrices <a href="">Netus convallis laoreet facilisi nulla</a>\r\nnascetur pretium magnis luctus. Nostra leo curae; ligula sociis libero\r\n<strong>pharetra</strong> lectus ligula. Parturient semper lacinia. Dui,\r\nelementum lacinia eget.\r\n</p>\r\n<h2>Habitasse Adipiscing Facilisi Neque Morbi Tellus</h2>\r\n<p>Hac mattis risus hymenaeos dictum imperdiet nibh massa at mattis. Luctus.\r\nArcu natoque velit laoreet elit scelerisque torquent lacinia. Nullam cursus\r\n<em>dapibus</em> erat mus phasellus semper pretium, fames ante semper torquent\r\nmi. Sapien tortor proin primis curae;. Proin laoreet laoreet dapibus\r\nconsequat.\r\n</p>\r\n<p>Ac torquent proin. Litora per gravida mus iaculis risus et gravida consequat\r\nvitae <a href="">mus dui ac</a> scelerisque porta <a href="">Viverra cubilia urna platea</a> habitasse aliquam\r\niaculis gravida. At, non Blandit faucibus cubilia nunc nonummy. Varius\r\nvolutpat.\r\n</p>\r\n<h2>Metus Molestie Tempor Nonummy Tortor</h2>\r\n<p>\r\nLeo pharetra pharetra nascetur ornare faucibus, rhoncus orci justo metus\r\nsollicitudin felis parturient ridiculus. Hendrerit mollis libero dolor molestie\r\ntristique <a href="">ligula dolor vel semper convallis magna <strong>potenti</strong>\r\nsuscipit</a> erat mattis <em>vestibulum</em> felis. Ligula ut metus. Orci sed odio\r\niaculis elit est rutrum nisi sodales ridiculus cum class adipiscing ultricies\r\nultrices.\r\n</p>\r\n<p>\r\nVarius egestas habitasse ultricies vehicula nisi curabitur feugiat augue\r\nlaoreet. Nisl. Quis primis potenti dictumst nostra lorem. Fermentum class taciti\r\nvolutpat amet quam auctor molestie a varius, quis ad iaculis habitant.\r\n</p>\r\n<h2>Gravida Nec</h2>\r\n<p>\r\nMalesuada Tortor. Cubilia morbi ornare aenean nibh varius dignissim felis,\r\nac. Porta ac nunc massa dapibus litora.\r\n</p>\r\n<h2>Parturient</h2>\r\n<p>Pretium libero donec mauris ultricies <em>magnis</em> vel platea fames auctor\r\nmassa facilisis mollis <a href="">velit suscipit praesent</a> platea nunc nullam, fames\r\npraesent augue tempus <em>nostra</em> elementum. Nascetur sollicitudin litora.\r\nMalesuada condimentum. Aliquam eget velit, ad <em>mi</em> felis leo molestie\r\nsenectus interdum <em>nunc</em> praesent accumsan duis porttitor nisl.\r\n</p>', '<?php $this->get_blog()->display_recent_entries(); ?>', '', 'about'),
 (3, '<h3>Coming Soon</h3>\r\n<p>It won''t be long now!</p>', '<?php $this->get_blog()->display_recent_entries(); ?>', '', 'download'),
 (4, '<?php $this->get_blog()->display(); ?>', '<?php $this->get_blog()->display_archive_compact(); ?>', '', 'blog'),
-(5, '<h2>Sign In</h2>\r\n<form method="post" action="http://localhost/login_attempt/" class="login_form">\r\n    <label for="login_email_input" class="login_input_label">Email</label>\r\n    <input type="text" name="login_email_input" class="login_email_input" id="login_email_input" title="Enter your email address here" maxlength="64">\r\n    <label for="login_password_input" class="login_input_label">Password</label>\r\n    <input type="password" name="login_password_input" class="login_password_input" id="login_password_input" title="Enter your password here" maxlength="16">\r\n    <em class="login_forgot_password"><a href="">Forgot Your Password?</a></em>\r\n    <label for="login_remember_email_checkbox" class="login_remember_email_label">\r\n        <input type="checkbox" class="login_remember_email_checkbox" id="login_remember_email_checkbox" name="login_remember_email_checkbox" value="1">\r\n        <strong>Remember My Email</strong>\r\n    </label>\r\n    <button type="submit" class="button" title="Sign in to the Users area">Sign In</button>\r\n</form>', '<h3>Access your account</h3>\r\n<ul class="subcontent_ul sans">\r\n	<li>Manage your pages</li>\r\n	<li>Edit your blog</li>\r\n	<li>Post new content</li>\r\n	<li>And much more!</li>\r\n</ul>\r\n<h3>Not a Member yet?</h3>\r\n<ul class="subcontent_ul sans">\r\n<li>\r\n<a href="http://localhost/register/" title="Join now it''s easy and free!" class="underline">Sign Up</a> now! It''s easy and free!\r\n</li>\r\n</ul>', 'http://localhost/script/form_scripts_min.php', 'login'),
-(6, '<h2>Sign Up</h2>\r\n<p>coming soon</p>', '', '', 'register'),
-(7, '<h2>Error 404</h2>', '', '', '404'),
-(8, '<h2>Error 403</h2>', '', '', '403'),
-(9, '<h2>Error 500</h2>', '', '', '500'),
-(10, '<h2>Login Attempt</h2>\r\n', '', '', 'login_attempt');
+(5, '<h1>Sign In</h1>\r\n<form method="post" action="http://localhost/login_attempt/" class="login_form">\r\n    <label for="login_email_input" class="login_input_label"><h3>Email</h3></label>\r\n    <input type="text" name="login_email_input" class="login_email_input" id="login_email_input" title="Enter your email address here" maxlength="64">\r\n    <label for="login_password_input" class="login_input_label"><h3>Password</h3></label>\r\n    <input type="password" name="login_password_input" class="login_password_input" id="login_password_input" title="Enter your password here" maxlength="16">\r\n    <em class="login_forgot_password"><a href="">Forgot Your Password?</a></em>\r\n    <label for="login_remember_email_checkbox" class="login_remember_email_label">\r\n        <input type="checkbox" class="login_remember_email_checkbox" id="login_remember_email_checkbox" name="login_remember_email_checkbox" value="1">\r\n        <strong>Remember My Email</strong>\r\n    </label>\r\n    <button type="submit" class="button" title="Sign in to the Users area">Sign In</button>\r\n</form>', '<h3>Access your account</h3>\r\n<ul class="subcontent_ul sans">\r\n	<li>Manage your pages</li>\r\n	<li>Edit your blog</li>\r\n	<li>Post new content</li>\r\n	<li>And much more!</li>\r\n</ul>\r\n<h3>Not a Member yet?</h3>\r\n<ul class="subcontent_ul sans">\r\n<li>\r\n<a href="http://localhost/register/" title="Join now it''s easy and free!" class="underline">Sign Up</a> now! It''s easy and free!\r\n</li>\r\n</ul>', 'http://localhost/script/form_scripts_min.php', 'login'),
+(6, '<h2>Sign Up</h2>\r\n<p>Coming soon!</p>', '', '', 'register'),
+(7, '<h2>Login Attempt</h2>\r\n', '', '', 'login_attempt');
 
 -- --------------------------------------------------------
 

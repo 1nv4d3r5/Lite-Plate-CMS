@@ -81,7 +81,7 @@ class Blog{
 		}
 	}
 	public function display_recent_entries($entry_count=5){
-		?><h3><a href="<?php echo WEB_ROOT . 'blog/'; ?>" title="Read our blog!">Recent Blog Entries</a></h3>
+		?><h3><a href="<?php echo WEB_ROOT . 'blog/'; ?>" title="Read recent entries from our blog!">Recent Blog Entries</a></h3>
 		<ul class="subcontent_ul serif"><?php
 		for($i=0;$i < $entry_count;$i++){
 			?>

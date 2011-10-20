@@ -119,13 +119,13 @@ class GlobalController{
 	}
 	public function fetch_http_error_content($error_code){
 		$this->connect_to_db();
-		$result = $this->_database->query('SELECT content, subcontent, script_url, page FROM lite_plate.node_1_content WHERE page=' . $error_code . ' LIMIT 1');
+		$result = $this->_database->query('SELECT content, page FROM lite_plate.error_content WHERE page=' . $error_code . ' LIMIT 1');
 		$this->disconnect_from_db();
 		$row = mysql_fetch_array($result);
 		return array(
 			'left_column' => $row['content'],
-			'right_column' => $row['subcontent'],
-			'script_url' => $row['script_url']
+			'right_column' => NULL,
+			'script_url' => NULL
 		);
 	}
 	public static function http_status($error_code){
