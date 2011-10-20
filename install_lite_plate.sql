@@ -10,7 +10,7 @@ SET time_zone = "+00:00";
 --
 -- Database: `lite_plate`
 --
-DROP DATABASE `lite_plate`;
+DROP DATABASE IF EXISTS `lite_plate`;
 CREATE DATABASE `lite_plate` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `lite_plate`;
 
