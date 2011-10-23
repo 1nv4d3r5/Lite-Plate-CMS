@@ -1,6 +1,7 @@
 <?php
-include_once(DOC_ROOT . 'inc/Database.php');
-include_once(DOC_ROOT . 'inc/Hash.php');
+
+include_once DOC_ROOT . 'inc/Database.php';
+include_once DOC_ROOT . 'inc/Hash.php';
 class UserSystem{
 	private $database;
 	
@@ -9,8 +10,8 @@ class UserSystem{
 	}
 	public function add_user($username, $password){
 		$this->database->connect('localhost', 'lite_plate', 'lite_plate');
-		$username = $this->database->sanitize_string($username);
-		$password = $this->database->sanitize_string($password);
+		$username = Database::sanitize_string($username);
+		$password = Database::sanitize_string($password);
 		if($this->find_user($username)){
 			return false;
 		}
@@ -27,7 +28,7 @@ class UserSystem{
 	}
 	public function find_user($username){
 		$this->database->connect('localhost', 'lite_plate', 'lite_plate');
-		$username = $this->database->sanitize_string($username);
+		$username = Database::sanitize_string($username);
 		$result = $this->database->query("SELECT username FROM lite_plate.users WHERE username ='" . $username . "' LIMIT 1");
 		$this->database->disconnect();
 		$row_count = mysql_numrows($result);
@@ -37,8 +38,8 @@ class UserSystem{
 	}
 	public function verify_user($username, $password){
 		$this->database->connect('localhost', 'lite_plate', 'lite_plate');
-		$username = $this->database->sanitize_string($username);
-		$password =$this->database->sanitize_string($password);
+		$username = Database::sanitize_string($username);
+		$password = Database::sanitize_string($password);
 		$result = $this->database->query("SELECT password FROM lite_plate.users WHERE username ='" . $username . "' LIMIT 1");
 		$this->database->disconnect();
 		$row_count = mysql_numrows($result);
@@ -50,31 +51,32 @@ class UserSystem{
 	}
 	public function attempt_login(){
 		$this->database->connect('localhost', 'lite_plate', 'lite_plate');
-		$email = $this->database->sanitize_string($_POST['login_email_input']);
-		$password = $this->database->sanitize_string($_POST['login_password_input']);
+		$email = Database::sanitize_string($_POST['login_email_input']);
+		$password = Database::sanitize_string($_POST['login_password_input']);
 		$this->database->disconnect();
 		if(!filter_var($email, FILTER_VALIDATE_EMAIL) && strcasecmp($email, 'admin') != 0){
 			?>
 			<h2>Thats not how you do it!</h2>
 			<p>
 				The email address you entered isn't in the right format.
-				Would you like to <a href="<?php echo WEB_ROOT . 'login.php' ?>" title="Try to sign in again?">try again</a>?
+				<br>
+				Would you like to <a href="<?php echo WEB_ROOT . 'login/' ?>" title="Try to sign in again?">try again</a>?
 			</p>		
 			<?php
-			
 		}
 		else if(strlen(trim($_POST['login_email_input'])) == 0){
 			?>
 			<h2>You're doing it wrong!</h2>
 			<p>
 				We can't log you in if you don't enter you email address!
-				Would you like to <a href="<?php echo WEB_ROOT . 'login.php' ?>" title="Try to sign in again?">try again</a>?
+				<br>
+				Would you like to <a href="<?php echo WEB_ROOT . 'login/' ?>" title="Try to sign in again?">try again</a>?
 			</p>		
 			<?php
 		}
 		else if($this->find_user($_POST['login_email_input'])){
 			if($this->verify_user($_POST['login_email_input'], $_POST['login_password_input'])){
-				Page::redirect(0, WEB_ROOT . 'blog/');
+				self::redirect(0, WEB_ROOT . 'blog/');
 				return true;
 			}
 			else{
@@ -82,7 +84,8 @@ class UserSystem{
 				<h2>Oh no! Something went wrong!</h2>
 				<p>
 					The password you entered does not match any registered user account.
-					Would you like to <a href="<?php echo WEB_ROOT . 'login.php' ?>" title="Try to sign in again?">try again</a>?
+					<br>
+					Would you like to <a href="<?php echo WEB_ROOT . 'login/' ?>" title="Try to sign in again?">try again</a>?
 				</p>		
 				<?php
 				return false;
@@ -93,7 +96,8 @@ class UserSystem{
 			<h2>Sorry an error occured!</h2>
 			<p>
 				None of our registered accounts match the email address you entered.
-				Would you like to <a href="<?php echo WEB_ROOT . 'login.php' ?>" title="Try to sign in again?">try again</a>?
+				<br>
+				Would you like to <a href="<?php echo WEB_ROOT . 'login/' ?>" title="Try to sign in again?">try again</a>?
 			</p>
 			<?php
 			return false;
@@ -107,7 +111,7 @@ class UserSystem{
 	}
 	public static function login_user($username){
 		$this->database->connect('localhost', 'lite_plate', 'lite_plate');
-		$username = $this->database->sanitize_string($username);
+		$username = Database::sanitize_string($username);
 		$this->database->disconnect();
 		$_SESSION['logged_in'] = 1;
 		$_SESSION['user'] = $username;
@@ -123,6 +127,9 @@ class UserSystem{
 		else{
 			return false;
 		}
+	}
+	public static function redirect($wait_time, $url){
+		header('Refresh: ' . $wait_time . '; URL=' . $url);
 	}
 }
 ?>

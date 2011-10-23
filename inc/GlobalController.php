@@ -4,6 +4,7 @@ include_once DOC_ROOT . 'inc/Page.php';
 include_once DOC_ROOT . 'inc/Tree.php';
 include_once DOC_ROOT . 'inc/Database.php';
 include_once DOC_ROOT . 'inc/Blog.php';
+include_once DOC_ROOT . 'inc/UserSystem.php';
 
 class GlobalController{
 	private $_database;
