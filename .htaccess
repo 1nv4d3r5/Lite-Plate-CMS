@@ -1,0 +1,40 @@
+#optimization
+Header unset ETag
+FileETag None
+<Files *>
+Header set Cache-Control "no-cache, must-revalidate"
+</Files>
+<FilesMatch "\.(ico|pdf|flv|jp?eg|png|gif|js|css|swf|php|htm?l|txt)$">
+Header set Cache-Control "public"
+Header set Expires "Fri, 25 Nov 2011 20:00:00 GMT"
+</FilesMatch>
+
+#rewrites
+Options +FollowSymlinks
+RewriteEngine on
+
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /([^/]+/)*index\.php\ HTTP/
+RewriteRule ^(([^/]+/)*)index\.php$ http://localhost/$1 [R=301,L]
+
+RewriteCond %{HTTP_HOST} ^www\. [NC]
+RewriteRule ^(.*)$ %{HTTP_HOST}$1 [C]
+RewriteRule ^www\.(.*)$ http://$1 [L,R=301]
+
+RewriteRule ^([^/]*)/?([^/]*)/?([^/]*)/$ /index.php?node1=$1&node2=$2&node3=$3 [L,NC]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_URI} !\..+$
+RewriteCond %{REQUEST_URI} !/$
+RewriteRule (.*) http://localhost/$1/ [R=301,L]
+
+#security
+Options -Indexes
+<Files .htaccess>
+order allow,deny
+deny from all
+</Files>
+
+#error pages
+ErrorDocument 403 /error/403.php
+ErrorDocument 404 /error/404.php
+ErrorDocument 500 /error/500.php
