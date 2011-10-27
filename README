@@ -26,7 +26,7 @@ Getting Started:
     -There is NO backend, yet... I know it is crucial, but at the moment dynamic content must be added using
      phpmyadmin
      or a command line based mySQL client
-    -There are huge holes, I'm sure your aware of them. It is a work in progress so feel free to add where
+    -There are huge holes, I'm sure you're aware of them. It is a work in progress so feel free to add where
      needed. It is a small system so you should be able to add whatever you need without bloating it.
 
 --------------------------------------------------------------------------------------------------------------
