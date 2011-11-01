@@ -5,7 +5,7 @@ html,body{
 	height: 100%;
 }
 body{
-	background: #e8e8e8;
+	background: #f2f2f2;
 }
 h1 a,
 h1 a:link,
@@ -54,7 +54,7 @@ h3 a:hover{
 .global_container{
 	min-height: 100%;
 	position: relative;
-	border-top: 20px solid #e8e8e8;
+	border-top: 20px solid #f2f2f2;
 	/*border-top: 12px solid #c3bdba;*/
 }
 .header_container{
@@ -100,7 +100,7 @@ h3 a:hover{
 .main_navigation a:visited{
 	display: inline-block;
 	margin: 8px 10px 0;
-	border-bottom: 1px solid #e8e8e8;
+	border-bottom: 1px solid #f2f2f2;
 	font: 900 20px/24px "Helvetica Neue", Helvetica, Arial, sans-serif;
 	text-decoration: none;
 	color: #ccc;
@@ -279,7 +279,7 @@ h3 a:hover{
 .return_to_top{
 	display: inline-block;
 	padding: 3px 10px 8px;
-	background: #e8e8e8;
+	background: #f2f2f2;
 	font: 900 19px "Helvetica Neue", Helvetica, Arial, sans-serif;
 	text-align: center;
 	text-decoration: none;

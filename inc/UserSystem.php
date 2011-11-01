@@ -1,5 +1,4 @@
 <?php
-
 include_once DOC_ROOT . 'inc/Database.php';
 include_once DOC_ROOT . 'inc/Hash.php';
 class UserSystem{
@@ -64,7 +63,7 @@ class UserSystem{
 			</p>		
 			<?php
 		}
-		else if(strlen(trim($_POST['login_email_input'])) == 0){
+		else if(strlen(trim($email)) == 0){
 			?>
 			<h2>You're doing it wrong!</h2>
 			<p>
@@ -74,9 +73,10 @@ class UserSystem{
 			</p>		
 			<?php
 		}
-		else if($this->find_user($_POST['login_email_input'])){
-			if($this->verify_user($_POST['login_email_input'], $_POST['login_password_input'])){
-				self::redirect(0, WEB_ROOT . 'blog/');
+		else if($this->find_user($email)){
+			if($this->verify_user($email, $password)){
+				self::login_user($email);
+				self::redirect(0, WEB_ROOT . 'dashboard/');
 				return true;
 			}
 			else{
@@ -110,9 +110,9 @@ class UserSystem{
 		else return false;
 	}
 	public static function login_user($username){
-		$this->database->connect('localhost', 'lite_plate', 'lite_plate');
-		$username = Database::sanitize_string($username);
-		$this->database->disconnect();
+		//$this->database->connect('localhost', 'lite_plate', 'lite_plate');
+		//$username = Database::sanitize_string($username);
+		//$this->database->disconnect();
 		$_SESSION['logged_in'] = 1;
 		$_SESSION['user'] = $username;
 	}

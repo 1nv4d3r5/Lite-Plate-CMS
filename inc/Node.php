@@ -46,16 +46,16 @@ class Node{
 				$children .= '<li><a href="' . $this->_children[$i]->get_url() . '" title="' . ucfirst($this->_children[$i]->get_name()) . '" class="' . 'menu_' . $this->_children[$i]->get_body_id() . '">' . $this->_children[$i]->get_name() . '</a></li>';
 			}
 		}
-		$children .= '</ul><ul class="column grid_4 login_navigation">';
-		for($i=0; $i < count($this->_children); $i++){
-			if(strcasecmp($this->_children[$i]->get_type(), 'login') == 0){
-				$class = '';
-				if(strcasecmp($this->_children[$i]->get_name(), 'Sign Up') == 0){
-					$class = 'last-child';
-				}
-				$children .= '<li class="' . $class . '"><a href="' . $this->_children[$i]->get_url() . '" title="' . ucfirst($this->_children[$i]->get_name()) . '" class="' . 'menu_' . $this->_children[$i]->get_body_id() . '">' . $this->_children[$i]->get_name() . '</a></li>';
-			}
-		}
+		//$children .= '</ul><ul class="column grid_4 login_navigation">';
+		//for($i=0; $i < count($this->_children); $i++){
+		//	if(strcasecmp($this->_children[$i]->get_type(), 'login') == 0 && strcasecmp($this->_children[$i]->get_type(), 'auth_required') != 0){
+		//		$class = '';
+		//		if(strcasecmp($this->_children[$i]->get_name(), 'Sign Up') == 0){
+		//			$class = 'last-child';
+		//		}
+		//		$children .= '<li class="' . $class . '"><a href="' . $this->_children[$i]->get_url() . '" title="' . ucfirst($this->_children[$i]->get_name()) . '" class="' . 'menu_' . $this->_children[$i]->get_body_id() . '">' . $this->_children[$i]->get_name() . '</a></li>';
+		//	}
+		//}
 		$children .= '</ul>';
 		return $children;
 	}
