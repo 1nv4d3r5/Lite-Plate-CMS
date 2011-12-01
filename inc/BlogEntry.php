@@ -1,21 +1,21 @@
 <?php
 class BlogEntry{
-	private $title;
-	private $date;
-	private $body;
-	private $url_title;
+	private $_title;
+	private $_date;
+	private $_body;
+	private $_url_title;
 	
 	public function __construct($title, $date, $body){
-		$this->title = $title;
-		$this->date = $date;
-		$this->body = $body;
-		$this->url_title = str_replace(" ", "-", $title);
+		$this->_title = $title;
+		$this->_date = $date;
+		$this->_body = $body;
+		$this->_url_title = str_replace(" ", "-", $title);
 	}
 	public function __toString(){
-		return '<h1><a href="' . $this->url_title  . '/" title="' . $this->title . '">' . $this->title . '</a></h1>' . '<h3>' . $this->date . '</h3><p>' . strip_tags($this->word_trim($this->body, 60, TRUE)) . '</p>';
+		return '<h1><a href="' . $this->_url_title  . '/" title="' . $this->_title . '">' . $this->_title . '</a></h1>' . '<h3>' . $this->_date . '</h3><p>' . strip_tags($this->word_trim($this->_body, 60, TRUE)) . '</p>';
 	}
 	public function to_string_full(){
-		echo '<h1>' . $this->title . '</h1>' . '<h3>' . $this->date . '</h3>' . $this->body/* . '</p>'*/;
+		echo '<h1>' . $this->_title . '</h1>' . '<h3>' . $this->_date . '</h3>' . $this->_body/* . '</p>'*/;
 	}
 	public static function word_trim($string, $word_count, $ellipsis = FALSE){
 		$words = explode(' ', $string);
@@ -33,16 +33,16 @@ class BlogEntry{
 	}
 	
 	public function get_title(){
-		return $this->title;
+		return $this->_title;
 	}
 	public function get_date(){
-		return $this->date;
+		return $this->_date;
 	}
 	public function get_body(){
-		return $this->body;
+		return $this->_body;
 	}
 	public function get_url_title(){
-		return $this->url_title;
+		return $this->_url_title;
 	}
 }
 ?>
